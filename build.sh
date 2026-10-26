@@ -43,8 +43,9 @@ docker run --rm \
         fi
         if [ "$UPDATE" = 1 ]; then
             west update --fetch-opt=--filter=tree:0
-            west zephyr-export
         fi
+        # Registers Zephyr in $HOME, which is thrown away with the container.
+        west zephyr-export >/dev/null
 
         python3 - <<EOF > targets.txt
 import yaml
